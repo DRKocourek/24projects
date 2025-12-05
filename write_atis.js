@@ -10,7 +10,7 @@ async function getATIS() {
             //get the output div
         const output_text = document.getElementsByClassName("display-atis")[0];
         //receive the data
-        const filtered_atis = await fetch("https://24test.drkocourek.stream/api/atis?airport="+input_field.value);
+        const filtered_atis = await fetch("https://24api.drkocourek.stream/api/atis?airport="+input_field.value);
         const atis_data = await filtered_atis.json();
         //create "holding" parent pre element for newline characters to apply
         const pre = document.createElement("pre");

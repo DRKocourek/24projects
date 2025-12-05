@@ -1,7 +1,7 @@
 let controllers_data
 async function getControllers() {
   //fetch the controllers data from the "cache" server
-  const controllers = await fetch("https://24test.drkocourek.stream/api/controllers");
+  const controllers = await fetch("https://24api.drkocourek.stream/api/controllers");
   controllers_data = await controllers.json();
   
   console.log(controllers_data);
