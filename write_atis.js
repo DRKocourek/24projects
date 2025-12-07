@@ -1,5 +1,9 @@
 async function getATIS() {
     //get the input field
+    element_array = Array.from(document.getElementsByClassName("atis"));
+    element_array.forEach(element => {
+        element.remove();
+    });
     for (let i = 0; i <= 1; i++){
         let input_field
         if (i == 0) {
@@ -16,6 +20,7 @@ async function getATIS() {
         const pre = document.createElement("pre");
     
         const code = document.createElement("code");
+        code.setAttribute("class", "atis");
         code.textContent = atis_data.content;
         pre.appendChild(code);
         output_text.appendChild(pre);
