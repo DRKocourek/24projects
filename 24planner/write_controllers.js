@@ -36,25 +36,25 @@ async function getControllers() {
           img_element = document.createElement("img");
           img_element.className = "ATC"
           img_element.setAttribute("src", "radar-icon.svg");
-          img_element.setAttribute("width", "25px");
+          img_element.setAttribute("width", "22px");
         }
         else if(element.position == "TWR") {
           img_element = document.createElement("img");
           img_element.className = "ATC"
           img_element.setAttribute("src", "tower-icon.svg");
-          img_element.setAttribute("height", "25px");
+          img_element.setAttribute("height", "22px");
         } else{
           img_element = document.createElement("img");
           img_element.className = "ATC"
           img_element.setAttribute("src", "ground-icon.svg");
-          img_element.setAttribute("width", "25px");
-          img_element.setAttribute("padding", "0px")
+          img_element.setAttribute("width", "22px");
+          img_element.setAttribute("padding", "0px");
 
         }
         //append the created element
         output_text[0].appendChild(img_element);
         //create the text element
-        text_element = document.createElement("h1");
+        text_element = document.createElement("p");
         text_element.setAttribute("class", "ATC_text");
         //set the correct name with the correct position
         text_element.textContent = element.airport + "_" + element.position + " - " + element.holder;

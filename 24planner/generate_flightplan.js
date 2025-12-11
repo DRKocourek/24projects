@@ -34,6 +34,11 @@ function createFlightplan(){
     const flightlevel = document.getElementsByClassName("flight-level")[0];
     const ifr = document.getElementsByClassName("ifr")[0];
     const flightroute = document.getElementsByClassName("route")[0];
+    try {
+        let error_message = document.getElementsByClassName("error")[0];
+        error_message.remove();
+    } catch(err) {
+    }
 
     let flightrules = "";
     if (!ifr.id) {
@@ -70,7 +75,15 @@ function createFlightplan(){
 
     if (callsign.value.trim() == "") callsign.value = ingame_callsign.value;
     if (flightroute.value == "") flightroute.value = "GPS Direct";
-    if (ac_icao.value.trim() == "" || ingame_callsign.value.trim() == "" || flightlevel.value.trim() == "") {console.log("Please fill out all the mandatory fields!"); return;}
+    if (ac_icao.value.trim() == "" || ingame_callsign.value.trim() == "" || flightlevel.value.trim() == "") {
+        console.log("Please fill out all the mandatory fields!");  
+        let error_div = document.getElementsByClassName("error-field")[0];
+        error_message = document.createElement("i");
+        error_message.setAttribute("class", "error");
+        error_message.textContent = "Please fill out all the mandatory fields!";
+        error_div.appendChild(error_message);
+        return;
+    }
 
     let fullFlightPlan =  "/createflightplan ingamecallsign:" + ingame_callsign.value + " callsign:" + callsign.value + " aircraft:" + ac_icao.value + " flightrules:" + flightrules + " departing:" + departure_fullname + " arriving:" + arrival_fullname + " flightlevel:" + flightlevel.value + " route:" + flightroute.value
     console.log(fullFlightPlan);

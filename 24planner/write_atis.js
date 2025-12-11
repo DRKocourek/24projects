@@ -1,10 +1,18 @@
 async function getATIS() {
-    //get the input field
+    //delete the unneeded elements
+    try {
+        let delete_atis_text = document.getElementById("info-text-atis");
+        delete_atis_text.remove();
+    } catch(err){
+        console.log("the element doesnt exist anymore");
+    }
+
     element_array = Array.from(document.getElementsByClassName("atis"));
     element_array.forEach(element => {
         element.remove();
     });
     for (let i = 0; i <= 1; i++){
+    //get the input field        
         let input_field
         if (i == 0) {
             input_field = document.getElementsByClassName("dep_airport")[0];
@@ -25,4 +33,5 @@ async function getATIS() {
         pre.appendChild(code);
         output_text.appendChild(pre);
     }
+
 }

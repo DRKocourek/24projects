@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ATC 24 API test</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: large;
+        }
+        img{
+            display: flex;
+            color: white;
+            align-items: center;
+            margin-top: 5px;
+        }
+        .ATC {
+            display: inline-block;
+            padding-right: 5px;
+            filter: invert(100%) sepia(0%) saturate(7444%) hue-rotate(12deg) brightness(110%) contrast(110%);
+        }
+        .ATC_text {
+            display: inline-flex;
+            font-weight: bold;
+            margin: 3px;
+            vertical-align: middle;
+            align-items: center;
+        }
+        code{
+            background-color: rgb(54, 70, 87);
+            border-radius: 5px;
+            border: none;
+            padding: 15px;
+            margin: 10px;
+            margin-top: 20px;
+            display: block;
+            width: 600px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        code, pre {
+            white-space: pre-wrap;
+        }
+        .vfr, .ifr {
+            background-color: lightslategray;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            color: white;
+        }
+        #grayed_out{
+            background-color: rgb(32, 32, 32);
+            color: gray;
+        }
+        .display-atis {
+            position: absolute;
+            top: 0%;
+            left: 50%;
+        }
+        .display-taxiways {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+        }
+        .error {
+            color:red;
+        }
+        input::placeholder {
+            font-style: italic;
+
+        }
+        .bottom_bar {
+            position: absolute;
+            bottom: 1%;
+            margin: auto;
+            justify-self: center;
+            justify-items: center;
+        }
+
+    </style>
+    </head>
+    
+    <body id="body">
+
+        <h1><span style="color:yellow; display:inline-block">24</span>Planner</h1>
+
+        <div class="flightplanner">
+        <label for="aircraft">Aircraft ICAO: </label>
+        <input type="text" class="aircraft" style="margin-left: 72px;" placeholder="Example: A330">
+        <br>
+        <label for="ingame-callsign">Ingame callsign: </label>
+        <input type="text" class="ingame-callsign" style="margin-left: 53px;" placeholder="Example: Oantas-7453">
+        <br>
+        <label for="callsign" >Callsign (optional): </label>
+        <input type="text" class="callsign" style="margin-left: 34px;" placeholder="Example: Qantas-7453">
+        <br>
+        <label for="flight-level">Flight level: </label>
+        <input type="text" class="flight-level" style="margin-left: 92px;" placeholder="Example: 040">
+        <br>
+        <label for="ifr">Flight Rules: </label>
+        <button class="ifr" style="display: inline-block; margin-left: 7%;" onclick="changeButton('ifr')">IFR</button>
+        <button class="vfr" style="display: inline-block;" id="grayed_out" onclick="changeButton('vfr')">VFR</button>
+        <br>
+        <label for="dep_airport">Departure airport: </label>
+        <input type="text" class="dep_airport" style="margin-left: 43px;" placeholder="Examples: IRFD, Greater Rockford">
+        <br>
+        <label for="arr_airport">Arrival airport: </label>
+        <input type="text" class="arr_airport" style="margin-left:72px;" placeholder="Examples: ILAR, Larnaca">
+        <br>
+        <label for="route">Route (optional): </label>
+        <input type="text" class="route" style="margin-left: 51px;">
+        <br>
+        <div class="error-field">
+
+        </div>
+        </div>
+        <button onclick="getATIS(); createFlightplan(); writeTaxiways();">Send request</button>
+        <p class="display-flightplan"></p>
+        </form>
+
+        <div class="display-atis">
+            <h3>ATIS</h3>
+            <i id="info-text-atis">ATIS' for your flightplan will show up here</i>
+            <br>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        
+        <div class="display-controllers">
+            <h3>Online ATC</h3>
+        </div>
+
+        <div class="display-taxiways">
+            <h3>Expected taxiway</h3>
+            <i class="taxiway-placeholder">The expected taxiway to runway will show up here</i>
+        </div>
+        <!--<button onclick="getControllers()">Update Data</button>-->
+        <div class="bottom_bar">
+            <a href="https://github.com/DRKocourek/24planner">
+                <img src="github-icon.png" alt="" width="40px" style="border: 2px solid lightgrey; padding: 7px; border-radius: 4px; background-color: darkgrey;">
+            </a>
+        </div>
+
+        <script src="write_controllers.js"></script>
+        <script src="write_atis.js"></script>
+        <script src="generate_flightplan.js"></script>
+        <script src="write_taxiways.js"></script>
+        <script>
+            let vfr_button = document.getElementsByClassName("ifr")[0];
+            let ifr_button = document.getElementsByClassName("vfr")[0];
+            let active = "ifr"
+            function changeButton(type){
+                if (type == "vfr" && active == "ifr"){
+                    ifr_button.removeAttribute("id");
+                    vfr_button.setAttribute("id", "grayed_out");
+                    active = "vfr";
+                } else if (type == "ifr" && active == "vfr"){
+                    vfr_button.removeAttribute("id");
+                    ifr_button.setAttribute("id", "grayed_out");
+                    active = "ifr";
+                } 
+            }
+        </script>
+    </body>
+</html>
